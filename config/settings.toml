@@ -1,0 +1,48 @@
+[default]
+# Configurações gerais da aplicação
+app_name = "Afterburner Controller"
+version = "0.1.0"
+debug = false
+
+[default.afterburner]
+# Caminho do executável do MSI Afterburner
+# Ajuste conforme sua instalação
+executable_path = "C:\\Program Files (x86)\\MSI Afterburner\\MSIAfterburner.exe"
+process_name = "MSIAfterburner.exe"
+
+# Timeouts em segundos
+startup_timeout = 5
+action_delay = 0.5
+shutdown_timeout = 3
+
+# Tentativas de abrir/fechar
+max_retries = 3
+
+[default.logging]
+# Configurações de log
+enabled = true
+log_dir = "log"
+log_file = "afterburner.log"
+log_level = "INFO"
+log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+max_bytes = 10485760  # 10MB
+backup_count = 5
+
+[default.actions]
+# Configurações de ações/cliques
+# Coordenadas podem ser ajustadas conforme necessário
+click_positions = []
+use_failsafe = true
+pause_between_actions = 0.25
+
+[development]
+debug = true
+
+[development.logging]
+log_level = "DEBUG"
+
+[production]
+debug = false
+
+[production.logging]
+log_level = "WARNING"

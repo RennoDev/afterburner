@@ -1,0 +1,20 @@
+[project]
+name = "afterburner"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Lucas", email = "lucasrennolimafilho96@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "dynaconf>=3.2.12",
+    "pyautogui>=0.9.54",
+]
+
+[project.scripts]
+afterburner = "afterburner:main"
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
