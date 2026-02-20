@@ -11,13 +11,10 @@ def activate_afterburner():
     Realiza ações/configurações no MSI Afterburner já aberto.
     """
     try:
-        logger.info("Iniciando ações no Afterburner")
-        # time.sleep(5)  # Pequena pausa para garantir que a janela esteja ativa
-        # x, y = pyautogui.position()
-        # logger.info(f"Posição atual do mouse: ({x}, {y})")
+        logger.info("Ativando Afterburner...")
         pyautogui.click(1134, 460)
         wait_and_click("apply.png", timeout=5)
-        logger.info("Ações no Afterburner concluídas")
+        logger.info("Afterburner ativado com sucesso")
         return True
 
     except Exception as e:

@@ -9,9 +9,9 @@ def close_afterburner():
     Fecha o MSI Afterburner.
     """
     try:
-        logger.info("Iniciando fechamento do Afterburner")
+        logger.info("Fechando Afterburner...")
         wait_and_click("minimizar.png", timeout=5)
-        logger.info("Afterburner fechado com sucesso")
+        logger.info("Afterburner fechado")
         return True
     except Exception as e:
         logger.error(f"Erro ao fechar Afterburner: {e}")
