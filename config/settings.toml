@@ -30,10 +30,26 @@ backup_count = 5
 
 [default.actions]
 # Configurações de ações/cliques
-# Coordenadas podem ser ajustadas conforme necessário
 click_positions = []
 use_failsafe = true
-pause_between_actions = 0.25
+
+# Tempos de espera (em segundos)
+global_wait = 1.0                    # Espera padrão entre ações principais
+pause_between_actions = 0.25         # Pausa automática do PyAutoGUI
+
+# Simulação de comportamento humano
+human_simulation = true              # Ativa movimentos mais naturais
+mouse_duration = 0.3                 # Duração do movimento do mouse (0 = instantâneo)
+
+# Digitação e teclas
+write_interval = 0.1                 # Intervalo entre caracteres ao digitar (write)
+press_interval = 0.5                 # Intervalo entre teclas ao pressionar (press)
+
+# Detecção de imagens
+confidence = 0.8                     # Confiança mínima para match (0.0 a 1.0, requer opencv-python)
+grayscale = true                     # Buscar em escala de cinza (mais rápido)
+wait_timeout = 10.0                  # Timeout padrão ao aguardar elemento aparecer
+check_interval = 0.5                 # Intervalo entre verificações ao aguardar
 
 [development]
 debug = true

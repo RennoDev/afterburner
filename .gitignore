@@ -31,6 +31,10 @@ env/
 log/*.log
 *.log
 
+# Elements (UI screenshots)
+elements/*.png
+elements/*.jpg
+
 # OS
 Thumbs.db
 desktop.ini

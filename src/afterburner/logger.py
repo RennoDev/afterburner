@@ -17,12 +17,18 @@ def get_logger(name: str | None) -> logging.Logger:
     if logger.handlers:
         return logger
 
-    # Define o nível de log
-    log_level = getattr(logging, settings.logging.log_level.upper(), logging.INFO)
+    # Define o nível de log com fallback
+    log_level_str = getattr(settings.logging, "log_level", "INFO")
+    log_level = getattr(logging, log_level_str.upper(), logging.INFO)
     logger.setLevel(log_level)
 
-    # Formato do log
-    formatter = logging.Formatter(settings.logging.log_format)
+    # Formato do log com fallback
+    log_format = getattr(
+        settings.logging,
+        "log_format",
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+    formatter = logging.Formatter(log_format)
 
     # Handler para console
     console_handler = logging.StreamHandler(sys.stdout)
@@ -31,17 +37,17 @@ def get_logger(name: str | None) -> logging.Logger:
     logger.addHandler(console_handler)
 
     # Handler para arquivo (se logging estiver habilitado)
-    if settings.logging.enabled:
+    if getattr(settings.logging, "enabled", True):
         # Cria o diretório de logs se não existir
-        log_dir = ROOT_DIR / settings.logging.log_dir
+        log_dir = ROOT_DIR / getattr(settings.logging, "log_dir", "log")
         log_dir.mkdir(parents=True, exist_ok=True)
 
-        log_file = log_dir / settings.logging.log_file
+        log_file = log_dir / getattr(settings.logging, "log_file", "afterburner.log")
 
         file_handler = RotatingFileHandler(
             log_file,
-            maxBytes=settings.logging.max_bytes,
-            backupCount=settings.logging.backup_count,
+            maxBytes=getattr(settings.logging, "max_bytes", 10485760),
+            backupCount=getattr(settings.logging, "backup_count", 5),
             encoding="utf-8",
         )
         file_handler.setLevel(log_level)
