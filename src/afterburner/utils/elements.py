@@ -32,8 +32,6 @@ def wait_and_click(element_name: str, timeout: float | None) -> bool:
     location = wait_element(element_name, timeout)
 
     if location:
-        logger.info(f"Clicando em '{element_name}' após aguardar")
-
         if settings.actions.human_simulation:
             duration = settings.actions.mouse_duration
         else:
@@ -62,8 +60,6 @@ def click_element(element_name: str, clicks: int = 1) -> bool:
     location = find_element(element_name)
 
     if location:
-        logger.info(f"Clicando em '{element_name}' na posição {location}")
-
         if settings.actions.human_simulation:
             duration = settings.actions.mouse_duration
         else:
@@ -75,7 +71,7 @@ def click_element(element_name: str, clicks: int = 1) -> bool:
         time.sleep(settings.actions.global_wait)
         return True
 
-    logger.warning(f"Elemento '{element_name}' não encontrado para clicar")
+    logger.warning(f"Elemento '{element_name}' não encontrado")
     return False
 
 
@@ -100,18 +96,16 @@ def wait_element(
     if timeout is None:
         timeout = settings.actions.wait_timeout
 
-    logger.info(f"Aguardando elemento '{element_name}' (timeout={timeout}s)")
     end_time = time.time() + timeout
 
     while time.time() < end_time:
         location = find_element(element_name)
         if location:
-            logger.info(f"Elemento '{element_name}' encontrado")
             return location
 
         time.sleep(settings.actions.check_interval)
 
-    logger.warning(f"Timeout ao aguardar elemento '{element_name}'")
+    logger.warning(f"Timeout ao aguardar '{element_name}'")
     return None
 
 
@@ -137,14 +131,10 @@ def find_element(element_name: str) -> Optional[Tuple[int, int]]:
             confidence=settings.actions.confidence,
             grayscale=settings.actions.grayscale,
         )
-
-        if location:
-            logger.debug(f"Elemento '{element_name}' encontrado em: {location}")
-
         return location
 
     except Exception as e:
-        logger.error(f"Erro ao buscar elemento '{element_name}': {e}")
+        logger.error(f"Erro ao buscar '{element_name}': {e}")
         return None
 
 
@@ -167,11 +157,7 @@ def setup():
     """Inicializa configurações do PyAutoGUI."""
     pyautogui.FAILSAFE = settings.actions.use_failsafe
     pyautogui.PAUSE = settings.actions.pause_between_actions
-
     ELEMENTS_DIR.mkdir(parents=True, exist_ok=True)
-
-    logger.info(f"PyAutoGUI configurado - Fail-Safe: {pyautogui.FAILSAFE}")
-    logger.debug(f"Diretório de elementos: {ELEMENTS_DIR}")
 
 
 # Inicializar automaticamente

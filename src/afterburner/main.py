@@ -27,28 +27,20 @@ def main():
 
     try:
         # Etapa 1: Abrir Afterburner
-        logger.info("Etapa 1/3: Abrindo Afterburner...")
         if not open_afterburner():
             logger.error("Falha ao abrir Afterburner")
             return 1
 
         afterburner_opened = True
-        logger.info("✓ Afterburner aberto com sucesso")
 
         # Etapa 2: Realizar ações
-        logger.info("Etapa 2/3: Executando ações...")
         if not activate_afterburner():
-            logger.error("Falha ao executar ações no Afterburner")
+            logger.error("Falha ao ativar Afterburner")
             return 2
 
-        logger.info("✓ Ações executadas com sucesso")
-
         # Etapa 3: Fechar Afterburner
-        logger.info("Etapa 3/3: Fechando Afterburner...")
         if not close_afterburner():
-            logger.warning("Falha ao fechar Afterburner (pode já estar fechado)")
-        else:
-            logger.info("✓ Afterburner fechado com sucesso")
+            logger.warning("Falha ao fechar Afterburner")
 
         success = True
         return 0
